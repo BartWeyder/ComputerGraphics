@@ -1,13 +1,9 @@
-#include "triangle.h"
-#include <QColor>
-#include <stdlib.h>
+#include "nonconvex.h"
 
-Triangle::Triangle(int x, int y, int width, int height, QColor pickedColor)
+NonConvex::NonConvex(int x, int y, int width, int height, QColor pickedColor)
 {
-    int stepX = -25;
-    int stepY = -25;
-
-    //this->vertices = new float[9];
+    float stepX = 0;
+    float stepY = 0;
 
     for(int i = 0; i < 3; i++) {
         this->vertices[i*3] = (2.0f * (x + stepX)) / width - 1.0;
@@ -15,32 +11,38 @@ Triangle::Triangle(int x, int y, int width, int height, QColor pickedColor)
         this->vertices[i*3 + 2] = 0.0f;
         switch (i) {
         case 0:
-            stepX += 25;
-            stepY += 50;
+            stepX -= 25;
+            stepY += 70;
             break;
         case 1:
-            stepX += 25;
-            stepY -= 50;
+            stepX += 15;
+            stepY -= 110;
+            break;
+        case 2:
+            stepX += 60;
+            stepY += 65;
             break;
         default:
             break;
         }
+
+        this->color[0] = (float) pickedColor.redF();
+        this->color[1] = (float) pickedColor.greenF();
+        this->color[2] = (float) pickedColor.blueF();
+        this->color[3] = (float) pickedColor.alphaF();
     }
-    this->color[0] = (float) pickedColor.redF();
-    this->color[1] = (float) pickedColor.greenF();
-    this->color[2] = (float) pickedColor.blueF();
-    this->color[3] = (float) pickedColor.alphaF();
 }
 
-Triangle::~Triangle()
-{
-    delete vertices;
-}
+NonConvex::~NonConvex(){ }
 
-void Triangle::draw(QOpenGLFunctions *f, GLuint *m_colAttr)
+void NonConvex::draw(QOpenGLFunctions *f, GLuint *m_colAttr)
 {
     GLuint VBO, EBO;
-    GLuint indices[] = {0, 1, 2};
+    GLuint indices[] =
+    {
+        0, 1, 2,
+        0, 2, 3
+    };
 
     f->glGenBuffers(1, &VBO);
     f->glGenBuffers(1, &EBO);
@@ -52,9 +54,9 @@ void Triangle::draw(QOpenGLFunctions *f, GLuint *m_colAttr)
     f->glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
-    f->glUniform4f(*m_colAttr, 1.0, 0.0, 0.0, 0.0);
+    f->glUniform4f(*m_colAttr, 0.0, 0.0, 1.0, 0.0);
     f->glEnableVertexAttribArray(0);
-    f->glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+    f->glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     f->glDisableVertexAttribArray(0);
 

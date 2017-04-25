@@ -28,11 +28,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     glwidget.cpp \
     triangle.cpp \
-    shape.cpp
+    shape.cpp \
+    square.cpp \
+    nonconvex.cpp \
+    sandwatch.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
     shape.h \
-    triangle.h
+    triangle.h \
+    square.h \
+    nonconvex.h \
+    sandwatch.h
 
 FORMS    += mainwindow.ui

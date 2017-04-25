@@ -1,5 +1,8 @@
 #include "glwidget.h"
 #include "triangle.h"
+#include "square.h"
+#include "nonconvex.h"
+#include "sandwatch.h"
 #include <QSurface>
 
 GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent) { }
@@ -62,8 +65,15 @@ void GLWidget::paintGL()
     //std::list <Shape*>::iterator iterator;
     Triangle * newTriangle = new Triangle (50, 50, this->width(), this->height(), this->pickedColor);
     Triangle * newTriangle1 = new Triangle (500, 200, this->width(), this->height(), this->pickedColor);
+    Square * newSquare = new Square (250, 250, this->width(), this->height(), this->pickedColor);
+    NonConvex * newNonConvex = new NonConvex(250, 200, this->width(), this->height(), this->pickedColor);
+    SandWatch * newSandWatch = new SandWatch(350, 290, this->width(), this->height(), this->pickedColor);
+
     newTriangle->draw(f, &m_colAttr);
     newTriangle1->draw(f, &m_colAttr);
+    newSquare->draw(f, &m_colAttr);
+    newNonConvex->draw(f, &m_colAttr);
+    newSandWatch->draw(f, &m_colAttr);
     m_program->release();
     //m_context->swapBuffers();
 }
