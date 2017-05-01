@@ -22,6 +22,8 @@ void MainWindow::on_pushButton_clicked()
     ui->pushButton->setAutoFillBackground(true);
     ui->pushButton->setPalette(palette);
     ui->pushButton->update();
+    ui->openGLWidget->makeCurrent();
+    ui->openGLWidget->update();
 }
 
 void MainWindow::on_comboColorMix_currentIndexChanged(int index)

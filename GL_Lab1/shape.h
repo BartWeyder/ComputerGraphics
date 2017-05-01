@@ -8,6 +8,7 @@ class Shape
 {
 public:
     virtual void draw(QOpenGLFunctions *f, GLuint *m_colAttr);
+    virtual ~Shape();
 
 private:
     //float* vertices;

@@ -5,7 +5,7 @@ NonConvex::NonConvex(int x, int y, int width, int height, QColor pickedColor)
     float stepX = 0;
     float stepY = 0;
 
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < 4; i++) {
         this->vertices[i*3] = (2.0f * (x + stepX)) / width - 1.0;
         this->vertices[i*3 + 1] = 1.0f - (2.0f * (y + stepY)) / height;
         this->vertices[i*3 + 2] = 0.0f;
@@ -54,7 +54,7 @@ void NonConvex::draw(QOpenGLFunctions *f, GLuint *m_colAttr)
     f->glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
-    f->glUniform4f(*m_colAttr, 0.0, 0.0, 1.0, 0.0);
+    f->glUniform4f(*m_colAttr, this->color[0], this->color[1], this->color[2], this->color[3]);
     f->glEnableVertexAttribArray(0);
     f->glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 

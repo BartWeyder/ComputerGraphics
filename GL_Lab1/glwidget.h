@@ -10,6 +10,7 @@
 #include <QOpenGLBuffer>
 #include <QOpenGLContext>
 #include <QOpenGLShader>
+#include <QRgb>
 #include <QColor>
 #include <list>
 #include "shape.h"
@@ -58,14 +59,16 @@ public:
     void setCurrentShape(int shape);
     void setNot(bool n);
     void mousePressEvent(QMouseEvent *event);
+    void drawList();
 protected:
-    QColor pickedColor;
+    QColor pickedColor = QColor(255, 255, 255);
     int colorMix = 0;
     int currentShape = 0;
     bool n = false;
-    Triangle * newShape;
+    Triangle * newShape;    
     bool needDraw = false;
     int currentX, currentY;
+    std::list<Shape*> list;
 };
 
 #endif // GLWIDGET_H

@@ -28,9 +28,6 @@ void GLWidget::initializeGL()
         f->glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
         needInit = false;
     }
-
-    //f = QOpenGLContext::currentContext()->functions();
-
     this->m_program = new QOpenGLShaderProgram(this);
     this->m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
     this->m_program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
@@ -46,51 +43,42 @@ void GLWidget::resizeGL(int w, int h)
 
 void GLWidget::paintGL()
 {
-    /*Triangle * newTriangle = new Triangle (50, 50, this->width(), this->height(), this->pickedColor);
-    Triangle * newTriangle1 = new Triangle (500, 200, this->width(), this->height(), this->pickedColor);
-    Square * newSquare = new Square (250, 250, this->width(), this->height(), this->pickedColor);
-    NonConvex * newNonConvex = new NonConvex(250, 200, this->width(), this->height(), this->pickedColor);
-    SandWatch * newSandWatch = new SandWatch(350, 290, this->width(), this->height(), this->pickedColor);
+    Triangle * t;
+    Square * s;
+    NonConvex * nc;
+    SandWatch * sw;
 
-    newTriangle->draw(f, &m_colAttr);
-    newTriangle1->draw(f, &m_colAttr);
-    newSquare->draw(f, &m_colAttr);
-    newNonConvex->draw(f, &m_colAttr);
-    newSandWatch->draw(f, &m_colAttr);*/
+    m_program->bind();
+    drawList();
     if(needDraw)
     {
-        m_program->bind();
         switch (currentShape) {
         case 0:
-        {
-            Triangle * t = new Triangle (this->currentX, this->currentY, width(), height(), this->pickedColor);
+            t = new Triangle (this->currentX, this->currentY, width(), height(), this->pickedColor);
             t->draw(f, &m_colAttr);
-            delete t;
+            this->list.push_back(t);
             break;
-        }
         case 1:
-        {
-            Square * s = new Square (this->currentX, this->currentY, width(), height(), this->pickedColor);
+            s = new Square (this->currentX, this->currentY, width(), height(), this->pickedColor);
             s->draw(f, &m_colAttr);
-            delete s;
-        }
+            this->list.push_back(s);
+            break;
         case 2:
-        {
-            NonConvex * nc = new NonConvex (this->currentX, this->currentY, width(), height(), this->pickedColor);
+            nc = new NonConvex (this->currentX, this->currentY, width(), height(), this->pickedColor);
             nc->draw(f, &m_colAttr);
-            delete nc;
-        }
+            this->list.push_back(nc);
+            break;
         case 3:
-        {
-            SandWatch * sw = new SandWatch (this->currentX, this->currentY, width(), height(), this->pickedColor);
+            sw = new SandWatch (this->currentX, this->currentY, width(), height(), this->pickedColor);
             sw->draw(f, &m_colAttr);
-            delete sw;
-        }
+            this->list.push_back(sw);
+            break;
         default:
             break;
         }
-        m_program->release();
+        this->needDraw = false;
     }
+    m_program->release();
 }
 
 void GLWidget::setPickedColor(QColor color)
@@ -121,5 +109,14 @@ void GLWidget::mousePressEvent(QMouseEvent *event)
         currentY = event->y();
         this->needDraw = true;
         update();
+    }
+}
+
+void GLWidget::drawList()
+{
+    std::list<Shape*>::const_iterator iterator;
+    for (iterator = this->list.begin(); iterator != this->list.end(); iterator++)
+    {
+        (*iterator)->draw(f, &m_colAttr);
     }
 }
