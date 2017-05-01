@@ -26,12 +26,12 @@ SandWatch::SandWatch(int x, int y, int width, int height, QColor pickedColor)
         default:
             break;
         }
-
-        this->color[0] = (float) pickedColor.redF();
-        this->color[1] = (float) pickedColor.greenF();
-        this->color[2] = (float) pickedColor.blueF();
-        this->color[3] = (float) pickedColor.alphaF();
     }
+
+    this->color[0] = (float) pickedColor.redF();
+    this->color[1] = (float) pickedColor.greenF();
+    this->color[2] = (float) pickedColor.blueF();
+    this->color[3] = (float) pickedColor.alphaF();
 }
 
 SandWatch::~SandWatch() { }

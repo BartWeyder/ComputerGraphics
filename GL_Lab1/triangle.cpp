@@ -34,7 +34,6 @@ Triangle::Triangle(int x, int y, int width, int height, QColor pickedColor)
 
 Triangle::~Triangle()
 {
-    delete vertices;
 }
 
 void Triangle::draw(QOpenGLFunctions *f, GLuint *m_colAttr)

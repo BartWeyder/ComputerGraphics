@@ -23,3 +23,18 @@ void MainWindow::on_pushButton_clicked()
     ui->pushButton->setPalette(palette);
     ui->pushButton->update();
 }
+
+void MainWindow::on_comboColorMix_currentIndexChanged(int index)
+{
+    ui->openGLWidget->setColorMix(index);
+}
+
+void MainWindow::on_shapeBox_currentIndexChanged(int index)
+{
+    ui->openGLWidget->setCurrentShape(index);
+}
+
+void MainWindow::on_checkBox_toggled(bool checked)
+{
+    ui->openGLWidget->setNot(checked);
+}

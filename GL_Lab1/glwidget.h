@@ -13,6 +13,10 @@
 #include <QColor>
 #include <list>
 #include "shape.h"
+#include "triangle.h"
+#include "square.h"
+#include "nonconvex.h"
+#include "sandwatch.h"
 
 class GLWidget : public QOpenGLWidget//, protected QOpenGLFunctions
 {
@@ -21,7 +25,6 @@ private:
     QOpenGLBuffer m_vbo;
     QOpenGLFunctions *f;
     bool needInit = true;
-    std::list <Shape*> shapeList;
     GLuint m_colAttr;
 
     QOpenGLContext *m_context;
@@ -31,6 +34,7 @@ private:
     const GLchar* vertexShaderSource = "#version 330 core\n"
         "layout (location = 0) in vec3 position;\n"
         "layout (location = 1) in vec3 color;\n"
+        "out vec3 outColor;\n"
         "void main()\n"
         "{\n"
         "gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
@@ -50,8 +54,18 @@ public:
     void resizeGL(int w, int h);
     void paintGL();
     void setPickedColor(QColor color);
+    void setColorMix(int mix);
+    void setCurrentShape(int shape);
+    void setNot(bool n);
+    void mousePressEvent(QMouseEvent *event);
 protected:
     QColor pickedColor;
+    int colorMix = 0;
+    int currentShape = 0;
+    bool n = false;
+    Triangle * newShape;
+    bool needDraw = false;
+    int currentX, currentY;
 };
 
 #endif // GLWIDGET_H

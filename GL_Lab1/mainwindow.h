@@ -20,6 +20,12 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_comboColorMix_currentIndexChanged(int index);
+
+    void on_shapeBox_currentIndexChanged(int index);
+
+    void on_checkBox_toggled(bool checked);
+
 private:
     Ui::MainWindow *ui;
     QColor pickedColor;
