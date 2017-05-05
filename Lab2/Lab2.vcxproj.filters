@@ -35,6 +35,18 @@
     <None Include="SnoopDogg.frag">
       <Filter>shaders</Filter>
     </None>
+    <None Include="HeadShader.vs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="HeadShader.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="FaceShader.vs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="FaceShader.frag">
+      <Filter>shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -46,6 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="snoop.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="hair.jpg">
       <Filter>Textures</Filter>
     </Image>
   </ItemGroup>

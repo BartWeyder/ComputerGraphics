@@ -125,10 +125,15 @@
     <ClInclude Include="SnoopDogg.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FaceShader.frag" />
+    <None Include="FaceShader.vs" />
+    <None Include="HeadShader.frag" />
+    <None Include="HeadShader.vs" />
     <None Include="SnoopDogg.frag" />
     <None Include="SnoopDogg.vs" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="hair.jpg" />
     <Image Include="snoop.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

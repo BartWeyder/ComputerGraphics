@@ -1,3 +1,4 @@
-﻿  SnoopDogg.cpp
+﻿  main.cpp
+  GLM: rotate function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
   Lab2.vcxproj -> D:\git\3D\glfw-3.2.1\build\Debug\Lab2.exe
   Lab2.vcxproj -> D:\git\3D\glfw-3.2.1\build\Debug\Lab2.pdb (Partial PDB)
